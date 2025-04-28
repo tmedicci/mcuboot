@@ -24,11 +24,13 @@ list(APPEND include_dirs
     ${esp_hal_dir}/components/esp_common/include
     ${esp_hal_dir}/components/${MCUBOOT_ARCH}/include
     ${esp_hal_dir}/components/esp_rom/include
-    ${esp_hal_dir}/components/esp_rom/include/${MCUBOOT_TARGET}
+    ${esp_hal_dir}/components/esp_rom/${MCUBOOT_TARGET}/include
+    ${esp_hal_dir}/components/esp_rom/${MCUBOOT_TARGET}/include/${MCUBOOT_TARGET}
     ${esp_hal_dir}/components/esp_rom/${MCUBOOT_TARGET}
     ${esp_hal_dir}/components/soc/include
     ${esp_hal_dir}/components/soc/${MCUBOOT_TARGET}
     ${esp_hal_dir}/components/soc/${MCUBOOT_TARGET}/include
+    ${esp_hal_dir}/components/soc/${MCUBOOT_TARGET}/register
     ${esp_hal_dir}/components/efuse/include
     ${esp_hal_dir}/components/efuse/${MCUBOOT_TARGET}/include
     ${esp_hal_dir}/components/efuse/private_include
@@ -37,7 +39,9 @@ list(APPEND include_dirs
     ${esp_hal_dir}/components/esp_hw_support/include/soc
     ${esp_hal_dir}/components/esp_hw_support/include/soc/${MCUBOOT_TARGET}
     ${esp_hal_dir}/components/esp_hw_support/port/include
+    ${esp_hal_dir}/components/esp_hw_support/port/${MCUBOOT_TARGET}/include
     ${esp_hal_dir}/components/esp_hw_support/include/esp_private
+    ${esp_hal_dir}/components/esp_hw_support/mspi_timing_tuning/include
     ${esp_hal_dir}/components/esp_hw_support/port/${MCUBOOT_TARGET}
     ${esp_hal_dir}/components/hal/${MCUBOOT_TARGET}/include
     ${esp_hal_dir}/components/hal/include
@@ -72,7 +76,7 @@ set(hal_srcs
     ${esp_hal_dir}/components/bootloader_support/src/bootloader_utility.c
     ${esp_hal_dir}/components/bootloader_support/src/esp_image_format.c
     ${esp_hal_dir}/components/bootloader_support/src/${MCUBOOT_TARGET}/bootloader_soc.c
-    ${esp_hal_dir}/components/bootloader_support/src/${MCUBOOT_TARGET}/bootloader_sha.c
+    ${esp_hal_dir}/components/bootloader_support/src/bootloader_sha.c
     ${esp_hal_dir}/components/hal/mpu_hal.c
     ${esp_hal_dir}/components/hal/efuse_hal.c
     ${esp_hal_dir}/components/hal/mmu_hal.c
@@ -92,7 +96,7 @@ set(hal_srcs
     ${esp_hal_dir}/components/efuse/src/esp_efuse_api.c
     ${esp_hal_dir}/components/efuse/src/esp_efuse_utility.c
     ${esp_hal_dir}/components/efuse/${MCUBOOT_TARGET}/esp_efuse_utility.c
-    ${esp_hal_dir}/components/log/log_noos.c
+    ${esp_hal_dir}/components/log/src/noos/log_timestamp.c
     ${src_dir}/bootloader_banner.c
     ${src_dir}/bootloader_wdt.c
     )
@@ -177,6 +181,7 @@ endif()
 
 set(LINKER_SCRIPTS
     -T${esp_hal_dir}/components/esp_rom/${MCUBOOT_TARGET}/ld/${MCUBOOT_TARGET}.rom.ld
+    -T${esp_hal_dir}/components/esp_rom/${MCUBOOT_TARGET}/ld/${MCUBOOT_TARGET}.rom.libc.ld
     -T${esp_hal_dir}/components/esp_rom/${MCUBOOT_TARGET}/ld/${MCUBOOT_TARGET}.rom.libgcc.ld
     -T${esp_hal_dir}/components/esp_rom/${MCUBOOT_TARGET}/ld/${MCUBOOT_TARGET}.rom.api.ld
     -T${esp_hal_dir}/components/soc/${MCUBOOT_TARGET}/ld/${MCUBOOT_TARGET}.peripherals.ld
