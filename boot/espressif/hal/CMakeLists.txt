@@ -77,7 +77,6 @@ set(hal_srcs
     ${esp_hal_dir}/components/bootloader_support/src/esp_image_format.c
     ${esp_hal_dir}/components/bootloader_support/src/${MCUBOOT_TARGET}/bootloader_soc.c
     ${esp_hal_dir}/components/bootloader_support/src/bootloader_sha.c
-    ${esp_hal_dir}/components/hal/mpu_hal.c
     ${esp_hal_dir}/components/hal/efuse_hal.c
     ${esp_hal_dir}/components/hal/mmu_hal.c
     ${esp_hal_dir}/components/hal/wdt_hal_iram.c
@@ -127,6 +126,7 @@ endif()
 if("${MCUBOOT_ARCH}" STREQUAL "xtensa")
     list(APPEND hal_srcs
         ${esp_hal_dir}/components/esp_rom/patches/esp_rom_longjmp.S
+        ${esp_hal_dir}/components/hal/mpu_hal.c
         )
 endif()
 
