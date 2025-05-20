@@ -187,6 +187,12 @@ set(LINKER_SCRIPTS
     -T${esp_hal_dir}/components/soc/${MCUBOOT_TARGET}/ld/${MCUBOOT_TARGET}.peripherals.ld
     )
 
+if(NOT "${MCUBOOT_ARCH}" STREQUAL "xtensa")
+    list(APPEND LINKER_SCRIPTS
+        -T${esp_hal_dir}/components/esp_rom/${MCUBOOT_TARGET}/ld/${MCUBOOT_TARGET}.rom.libc-suboptimal_for_misaligned_mem.ld
+        )
+endif()
+
 include(${CMAKE_CURRENT_LIST_DIR}/include/${MCUBOOT_TARGET}/${MCUBOOT_TARGET}.cmake)
 
 add_library(hal STATIC ${hal_srcs} ${include_dirs})
