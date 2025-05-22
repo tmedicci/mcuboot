@@ -36,6 +36,7 @@ SECTIONS
     *libhal.a:*.*(.literal .text .literal.* .text.*)
     *esp_mcuboot.*(.literal .text .literal.* .text.*)
     *esp_loader.*(.literal .text .literal.* .text.*)
+    . = ALIGN (4);
     *main.*(.literal .text .literal.* .text.*)
     *(.fini.literal)
     *(.fini)
@@ -73,6 +74,7 @@ SECTIONS
   .dram0.data :
   {
     _data_start = ABSOLUTE(.);
+    *(.dram1 .dram1.*) /* catch stray DRAM_ATTR */
     *(.data)
     *(.data.*)
     *(.gnu.linkonce.d.*)
